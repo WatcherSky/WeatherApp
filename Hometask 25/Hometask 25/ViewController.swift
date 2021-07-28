@@ -33,7 +33,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
@@ -45,7 +44,10 @@ class ViewController: UIViewController {
     }
     
     private func getWeatherDataByCity(city: String) {
-        let request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apikey)")!)
+        guard let URL = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apikey)") else {
+            return
+        }
+        let request = URLRequest(url: URL)
         nameCity = city
         let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
             let weatherDataFromJSON = try? JSONDecoder().decode(WeatherData.self, from: data!)
@@ -61,7 +63,7 @@ class ViewController: UIViewController {
                 self.speed = weatherDataFromJSON.wind.speed
                 self.id = weather.id
                 DispatchQueue.main.async {
-                    self.cityLabel.text = "Weather of your City"
+                    self.cityLabel.text = self.nameCity
                     self.temperatureLabel.text = "Temperature: \(self.temp) Cº"
                     self.descriptionLabel.text = "Description: \(self.descriptionOfWeather)"
                     self.feelsLikeLabel.text = "FeelsLike: \(self.feelsLike) Cº"
@@ -93,7 +95,7 @@ class ViewController: UIViewController {
                 self.speed = weatherDataFromJSON.wind.speed
                 self.id = weather.id
                 DispatchQueue.main.async {
-                    self.cityLabel.text = "City: \(self.nameCity)"
+                    self.cityLabel.text = "City: Weather of your city"
                     self.temperatureLabel.text = "Temperature: \(self.temp) Cº"
                     self.descriptionLabel.text = "Description: \(self.descriptionOfWeather)"
                     self.feelsLikeLabel.text = "FeelsLike: \(self.feelsLike) Cº"
