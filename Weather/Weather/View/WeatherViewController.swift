@@ -24,12 +24,11 @@ class WeatherViewController: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     
-    let weatherPresenter = WeatherPresenter(weatherManager: WeatherManager())
+    private let weatherPresenter = WeatherPresenter(weatherManager: WeatherManager())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearch()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,9 +49,9 @@ extension WeatherViewController: WeatherDelegate {
     func updateUIWithWeatherData(weather: (cityName: String, temperature: Double, temperatureInt: Int, feelsLikeTemperature: Double, feelsLikeTempInt: Int, icon: String, windSpeed: Double, humidity: Int, weatherDescription: String, condition: Int)) {
         cityLabel.text = weather.cityName
         descriptionLabel.text = "Description: \(weather.weatherDescription)"
-        tempLabel.text = "Temperature: \(weather.temperatureInt)"
+        tempLabel.text = "Temperature: \(weather.temperatureInt) C°"
         imageView.image = UIImage(named: weather.icon)
-        feelsLikeLabel.text = "FeelsLike: \(weather.feelsLikeTempInt)"
+        feelsLikeLabel.text = "FeelsLike: \(weather.feelsLikeTempInt)°"
         humidityLabel.text = "Humidity: \(weather.humidity) %"
         windLabel.text = "WindSpeed: \(weather.windSpeed) m/s"
     }
@@ -69,7 +68,5 @@ extension WeatherViewController: UISearchBarDelegate {
         
         weatherPresenter.url = url
         weatherPresenter.getWeatherFromManager()
-        }
     }
-
-
+}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol WeatherDelegate: AnyObject {
+protocol WeatherDelegate {
     func updateUIWithWeatherData(weather: (cityName : String, temperature : Double, temperatureInt: Int, feelsLikeTemperature: Double, feelsLikeTempInt: Int, icon : String, windSpeed : Double, humidity : Int, weatherDescription : String, condition : Int))
 }
 
