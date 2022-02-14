@@ -8,9 +8,6 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
-
-    private var apikey = "43de0ac13c66a891d31d59320d9bb346"
-    
     @IBOutlet private weak var cityLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     
